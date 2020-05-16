@@ -1,6 +1,6 @@
 const formatter = new Intl.DateTimeFormat(navigator.language, {
     year: 'numeric',
-    month: '2-digit',
+    month: 'short',
     day: '2-digit'
 });
 

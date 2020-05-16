@@ -24,6 +24,7 @@
             <Control
                 type="text"
                 label="Количество отработанных дней"
+                flag="numeric"
                 v-model="countOfWorkedDays"
             />
         </div>
@@ -31,6 +32,7 @@
             <Control
                 type="text"
                 label="Оклад"
+                flag="numeric"
                 v-model="payAmount"
             />
         </div>
@@ -60,29 +62,33 @@ export default {
     },
     methods: {
         submitData() {
-            const formData = new FormData();
-            formData.append('firstname', this.firstname);
-            formData.append('lastname', this.lastname);
-            formData.append('payDate', this.payDate);
-            formData.append('payAmount', this.payAmount);
-            formData.append('countOfWorkedDays', this.countOfWorkedDays);
+            const store = this.$store.state.employees;
+            store.push({
+                firstname: this.firstname,
+                lastname: this.lastname,
+                payDate: this.payDate,
+                payAmount: this.payAmount,
+                countOfWorkedDays: this.countOfWorkedDays
+            });
 
-            fetch('https://httpbin.org/post', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                });
+            localStorage.setItem('employees', JSON.stringify(store));
+
+            this.$store.dispatch('updateEmployees', store);
+            this.clearData();
+        },
+        clearData() {
+            this.firstname = null;
+            this.lastname = null;
+            this.payDate = null;
+            this.payAmount = null;
+            this.countOfWorkedDays = null;
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .form {
-    padding: 24px;
     gap: 24px;
     display: grid;
 
@@ -98,7 +104,7 @@ export default {
     }
 
     &__wrapper {
-        grid-auto-columns: min-content;
+        grid-auto-columns: max-content;
     }
 
     &__button {

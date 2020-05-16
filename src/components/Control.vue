@@ -7,11 +7,14 @@
             :value="value"
             :placeholder="placeholder || label"
             v-on="inputListeners"
+            required
         >
     </label>
 </template>
 
 <script>
+import { numeric } from '@/modules/filters';
+
 export default {
     name: 'Control',
     props: {
@@ -24,7 +27,8 @@ export default {
             required: true
         },
         placeholder: String,
-        value: String
+        value: String,
+        flag: String
     },
     computed: {
         inputListeners() {
@@ -32,17 +36,21 @@ export default {
 
             return Object.assign({}, this.$listeners, {
                 input(event) {
+                    if (self.flag === 'numeric') {
+                        numeric(event.target);
+                    }
+
                     self.$emit('input', event.target.value);
                 }
             });
         }
-    },
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .control {
-    --border-color: rgba(0, 0, 0, 0.1);
+    --border-color: #eeeeee;
 
     gap: 8px;
     display: grid;
