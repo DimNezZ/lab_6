@@ -12,7 +12,7 @@ const formatter = new Intl.DateTimeFormat(navigator.language, {
  * @param {Date} date Дата
  * @param {string} placeholder Шаблон
  */
-export const format = (date, placeholder = null) => {
+const format = (date, placeholder = null) => {
     if (placeholder !== null) {
         const parts = new Map(
             formatter.formatToParts(date).map(entry => [entry.type, entry.value])
@@ -30,3 +30,5 @@ export const format = (date, placeholder = null) => {
         return formatter.format(date);
     }
 };
+
+export default format;

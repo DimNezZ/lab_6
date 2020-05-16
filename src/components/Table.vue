@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { format } from '@/modules/format';
+import format from '@/modules/format';
 
 export default {
     name: 'Table',

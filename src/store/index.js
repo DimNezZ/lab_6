@@ -7,7 +7,6 @@ export default new Vuex.Store({
     state: {
         employees: []
     },
-    getters: {},
     mutations: {
         updateEmployees(state, data) {
             state.employees = data;

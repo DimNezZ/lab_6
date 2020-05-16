@@ -1,8 +1,5 @@
 <template>
-    <form
-        class="form"
-        @submit.prevent="submitData"
-    >
+    <form class="form" @submit.prevent="submitData">
         <div class="form__group">
             <Control
                 type="text"
